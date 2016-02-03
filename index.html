@@ -73,6 +73,17 @@
 			    border-color: #444;
 			}
 
+			.tooltip {
+				display:none;
+				position:absolute;
+				border:1px solid #333;
+				background-color:#161616;
+				border-radius:5px;
+				padding:10px;
+				color:#fff;
+				font-size:12px Arial;
+			}
+
 			#text text {
 				font-family: Georgia !important;
 			}
@@ -470,6 +481,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
         <script>
+
+        	// swatch behavior
         	$('.swatch a').on("click", function() {
         		var $this = $(this);
         		var $parent = $this.parent();
@@ -485,6 +498,26 @@
         		$path.attr('fill-opacity', $opacity);
         		$path.attr('mix-blend-mode', $blend);
         	});
+
+        	//tooltips
+        	$('.swatch a').hover(function(){
+		        // Hover over code
+		        var title = $(this).attr('title');
+		        $(this).data('tipText', title).removeAttr('title');
+		        $('<p class="tooltip"></p>')
+		        .text(title)
+		        .appendTo('body')
+		        .fadeIn('slow');
+			}, function() {
+		        // Hover out code
+		        $(this).attr('title', $(this).data('tipText'));
+		        $('.tooltip').remove();
+			}).mousemove(function(e) {
+		        var mousex = e.pageX + 20; //Get X coordinates
+		        var mousey = e.pageY + 10; //Get Y coordinates
+		        $('.tooltip')
+		        .css({ top: mousey, left: mousex })
+			});
         </script>
        
     </body>
